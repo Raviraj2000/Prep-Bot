@@ -12,7 +12,7 @@ To get a new question just refresh the page.
 
 You will need a OpenAI API key for generating embeddings and Groq API Key to access LLama 3 70 b model.
 
-### What was the motivation ?
+## Motivation ?
 I always had trouble coming up with answers on the spot at any interview. One of my seniors told me its best to practice with someone. But I needed someone to practice the interviews with. So I decided to come up with an application of my own. 
 
 ## Implementation:
