@@ -1,8 +1,8 @@
-from whisper import processor, model
+from transcription.whisper import processor, model
 import streamlit as st
 import requests
 import json
-from whisper_transcribe import get_transcription
+from transcription.whisper_transcribe import get_transcription
 
 st.title("💬 Interview Bot")
 st.caption("🚀 A Streamlit chatbot powered by Llama")
