@@ -70,4 +70,4 @@ Groq Api provides free access to the LLama 3 70b model with 8192 token window. T
 
 
 ## Demo
-![Demo Video](static\streamlit-app-2024-06-04-13-06-71.gif)
+![Demo Video](static\streamlit-app-2024-06-04-13-06-71.gif)](https://github.com/Raviraj2000/Prep-Bot/blob/main/static/streamlit-app-2024-06-04-13-06-71.gif?raw=true)
