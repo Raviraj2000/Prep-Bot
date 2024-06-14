@@ -22,16 +22,3 @@ Prep-Bot aims to be your ultimate AI-powered job-prep buddy, tailored to meet an
 ## Version 3.0:
 - Profile system to track progress based on a scoring system
 - Better UI
-
-
-
-
-
-
-
-
-
-
-
-
-
