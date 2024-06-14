@@ -12,6 +12,8 @@ The app asks the user a random question from the collection of questions. The us
 
 You will need a OpenAI API key for generating embeddings and Groq API Key to access LLama 3 70 b model.
 
+https://github.com/Raviraj2000/Prep-Bot/blob/2545f463a2679bf05b0b57d320bc7a0efab9abdb/.env#L1
+
 ## Motivation ?
 I always had trouble coming up with answers on the spot at any interview. One of my seniors told me its best to practice with someone. But I needed someone to practice the interviews with. So I decided to come up with an application of my own. 
 
