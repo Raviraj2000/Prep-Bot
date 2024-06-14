@@ -8,11 +8,13 @@ The app asks the user a random question from the collection of questions. The us
 
 ### **In this version to get a new question just refresh the page.**
 
-## Prerequisites
+## Setup
 
-You will need a OpenAI API key for generating embeddings and Groq API Key to access LLama 3 70 b model.
+1. You will need a OpenAI API key for generating embeddings and Groq API Key to access LLama 3 70 b model.
+    https://github.com/Raviraj2000/Prep-Bot/blob/bd1fff2b13035ed95693211ae542357bc5110856/.env#L1-L2
 
-https://github.com/Raviraj2000/Prep-Bot/blob/bd1fff2b13035ed95693211ae542357bc5110856/.env#L1-L2
+2. Run get_mic.py and note the number of the input device you want to use
+   
 
 ## Motivation ?
 I always had trouble coming up with answers on the spot at any interview. One of my seniors told me its best to practice with someone. But I needed someone to practice the interviews with. So I decided to come up with an application of my own. 
