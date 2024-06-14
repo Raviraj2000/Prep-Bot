@@ -1,3 +1,7 @@
+# Vision for Prep-Bot
+Prep-Bot aims to be your ultimate AI-powered job-prep buddy, tailored to meet any candidate's requirements. Our platform is designed to learn and identify your weak points, providing you with personalized questions to enhance your skills and confidence. The questions are meticulously crafted, drawing from the company's history of interview questions, specific job descriptions, and insights from your resume. This ensures comprehensive preparation, focusing on areas where you need the most improvement, to help you succeed in your career aspirations.
+
+
 ## Version 1.0 (Current):
 - Randomly generated questions
 - Ability to record responses
@@ -20,8 +24,7 @@
 - Better UI
 
 
-## Vision for Prep-Bot
-Prep-Bot aims to be your ultimate AI-powered job-prep buddy, tailored to meet any candidate's requirements. Our platform is designed to learn and identify your weak points, providing you with personalized questions to enhance your skills and confidence. The questions are meticulously crafted, drawing from the company's history of interview questions, specific job descriptions, and insights from your resume. This ensures comprehensive preparation, focusing on areas where you need the most improvement, to help you succeed in your career aspirations.
+
 
 
 
