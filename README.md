@@ -12,14 +12,10 @@ To get a new question just refresh the page.
 
 You will need a OpenAI API key for generating embeddings and Groq API Key to access LLama 3 70 b model.
 
-## WorkFlow
-
-![Workflow Image](interview_prep.drawio.png)
-
 ### What was the motivation ?
 I always had trouble coming up with answers on the spot at any interview. One of my seniors told me its best to practice with someone. But I needed someone to practice the interviews with. So I decided to come up with an application of my own. 
 
-### Implementation:
+## Implementation:
 
 #### Tech Stack:
 - LLM: LLama 3 - Groq API
@@ -27,7 +23,6 @@ I always had trouble coming up with answers on the spot at any interview. One of
 - LLM Framework: Langchain
 - Frontend: Streamlit
 - Backend: Python, Flask
-
 
 #### Database:
 The database contains unstructured data from 301 questions for interview suggested by harvard business school. The is cleaned, chunked and stored in the chromadb vector database. The langchain framework offers a retriever based on text similarity on the chromadb database. We can retrieve the k top similar responses from the database. 
@@ -63,3 +58,7 @@ Groq Api provides free access to the LLama 3 70b model with 8192 token window. T
     
 6. **Whisper Tiny Model**:
     - **Speed and Accuracy**: Balances the need for quick transcription with sufficient accuracy for evaluating spoken responses.
+
+## WorkFlow
+
+![Workflow Image](interview_prep.drawio.png)
