@@ -6,7 +6,7 @@ A platform to practice interviews. Prep Bot gives you detailed feedback on how t
 
 The app asks the user a random question from the collection of questions. The user then is prompted to record a response. The system then transcribes the response, evaluates it and provides feedback on strengths, areas of improvement and suggestions for improvement.
 
-**In this version to get a new question just refresh the page.**
+### **In this version to get a new question just refresh the page.**
 
 ## Prerequisites
 
