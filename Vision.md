@@ -5,7 +5,7 @@
 ## Version 1.1:
 -  Migrate Databases to Milvus for handling distributed envs and better queries and  sophisticated search -> Better for scaling
 -  Better Transcription Accuracy -> Using a better whisper model
-- Ability to upload resume and get more tailored responses 
+- Ability to upload resume and get more tailored responses  -> modify prompt
 
 ## Version 2.0:
 - Chat History and context awareness -> Langchain History Aware -> Session storing
@@ -16,7 +16,7 @@
 - User voice recognition for speaker tagging -> Voice fingerprinting -> improves ability to analyze recorded interviews
 
 ## Version 3.0:
-- Profile system to track progress
+- Profile system to track progress based on a scoring system
 - Better UI
 
 
