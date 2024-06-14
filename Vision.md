@@ -19,8 +19,6 @@
 - Profile system to track progress
 - Better UI
 
-My logic is that first improve your USP and the brain of your app then go for the UX
-
 
 
 
