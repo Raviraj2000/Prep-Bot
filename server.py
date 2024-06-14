@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from questions import get_interview_question
-from whisper_transcribe import get_transcription
+from questions.questions import get_interview_question
+from transcription.whisper_transcribe import get_transcription
 from database import get_relevant_data
 from groq_api import evaluate
 import json
