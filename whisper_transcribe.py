@@ -26,7 +26,7 @@ def record_audio():
     keyboard.wait('r')
     with st.chat_message("assistant"):
         st.markdown("Recording started please speak into the microphone... Press 'R' again to stop.")
-    stream = sd.InputStream(samplerate=sample_rate, channels=1, dtype='float32', callback=callback, device=54)
+    stream = sd.InputStream(samplerate=sample_rate, channels=1, dtype='float32', callback=callback, device="Enter Device Number Here")
     stream.start()
     keyboard.wait('r')
     stream.stop()
