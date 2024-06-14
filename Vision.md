@@ -1,7 +1,7 @@
 ## Version 1.0 (Current):
 - Randomly generated questions
 - Ability to record responses
-- Multiple feedbacks based on multiple aspects of the response
+- Feedback based on multiple aspects of the response
 ## Version 1.1:
 -  Migrate Databases to Milvus for handling distributed envs and better queries and  sophisticated search -> Better for scaling
 -  Better Transcription Accuracy -> Using a better whisper model
