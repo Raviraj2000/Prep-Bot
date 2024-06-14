@@ -13,7 +13,8 @@ The app asks the user a random question from the collection of questions. The us
 1. You will need a OpenAI API key for generating embeddings and Groq API Key to access LLama 3 70 b model.
     https://github.com/Raviraj2000/Prep-Bot/blob/bd1fff2b13035ed95693211ae542357bc5110856/.env#L1-L2
 
-2. Run get_mic.py and note the number of the input device you want to use
+2. Run get_mic.py and note the number of the input device you want to use. Enter the number here
+   https://github.com/Raviraj2000/Prep-Bot/blob/f593f4dc5e80455ad2588d2a22f59a5a24ea7e53/whisper_transcribe.py#L29
    
 
 ## Motivation ?
