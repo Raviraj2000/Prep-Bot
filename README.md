@@ -14,4 +14,4 @@ You will need a OpenAI API key for generating embeddings and Groq API Key to acc
 
 ## WorkFlow
 
-![interview_prep.drawio.png]
+![Workflow Image](interview_prep.drawio.png)
