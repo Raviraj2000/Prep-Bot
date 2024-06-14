@@ -22,8 +22,6 @@ Groq Api provides free access to the LLama 3 70b model with 8192 token window. T
 - template: The template containing instructions on how the response should be structured is given to the model [strengths, areas of improvement, suggestions].
 - response: the transcribed response from user is given for evaluation. Using the prompt given above the model then evaluates the user's answer and provides feedback on it.
 
-![[interview_prep.drawio.png]]
-
 ### Reasons for Choosing the Stack:
 
 1. **LLama 3 via Groq API**:

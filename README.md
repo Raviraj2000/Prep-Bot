@@ -11,3 +11,7 @@ To get a new question just refresh the page.
 ## Prerequisites
 
 You will need a OpenAI API key for generating embeddings and Groq API Key to access LLama 3 70 b model.
+
+## WorkFlow
+
+![interview_prep.drawio.png]
