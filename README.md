@@ -14,6 +14,7 @@ The app asks the user a random question from the collection of questions. The us
     https://github.com/Raviraj2000/Prep-Bot/blob/bd1fff2b13035ed95693211ae542357bc5110856/.env#L1-L2
 
 2. Run get_mic.py and note the number of the input device you want to use. Enter the number here
+   https://github.com/Raviraj2000/Prep-Bot/blob/b14b995a7e0fc896ea66b3bea8ec2069b9a5e0e4/transcription/whisper_transcribe.py#L29
    
 
 ## Motivation ?
