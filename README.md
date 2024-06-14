@@ -18,17 +18,18 @@ You will need a OpenAI API key for generating embeddings and Groq API Key to acc
 
 ### What was the motivation ?
 I always had trouble coming up with answers on the spot at any interview. One of my seniors told me its best to practice with someone. But I needed someone to practice the interviews with. So I decided to come up with an application of my own. 
-### How does it work?
-The app asks the user a random question from the collection of questions. The user then is prompted to record a a response. The system then transcribes the response, evaluates it and provides feedback.
-### Explain the technology behind it
+
+### Implementation:
+
 #### Tech Stack:
 - LLM: LLama 3 - Groq API
 - Database: ChromaDB
 - LLM Framework: Langchain
 - Frontend: Streamlit
 - Backend: Python, Flask
-#### Implementation:
-##### Database:
+
+
+#### Database:
 The database contains unstructured data from 301 questions for interview suggested by harvard business school. The is cleaned, chunked and stored in the chromadb vector database. The langchain framework offers a retriever based on text similarity on the chromadb database. We can retrieve the k top similar responses from the database. 
 #### Server:
 Flask server provides endpoints to get a random question from the database and another endpoint to evaluate thew response.
