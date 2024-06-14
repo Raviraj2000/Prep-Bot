@@ -1,64 +1,11 @@
 from whisper import processor, model
 import streamlit as st
 import requests
-import numpy as np
-import torch
-import torchaudio
-import keyboard
-import sounddevice as sd
 import json
+from whisper_transcribe import get_transcription
 
 st.title("💬 Interview Bot")
 st.caption("🚀 A Streamlit chatbot powered by Llama")
-
-# Function to preprocess audio for Whisper
-def preprocess_audio(audio, sample_rate):
-    # Resample if necessary
-    if sample_rate != 16000:
-        resampler = torchaudio.transforms.Resample(orig_freq=sample_rate, new_freq=16000)
-        audio = resampler(torch.tensor(audio).transpose(0, 1)).transpose(0, 1).numpy()
-    return audio
-
-def record_audio():
-    sample_rate = 16000  # Whisper expects 16000Hz input
-    audio_data = []
-
-    def callback(indata, frames, time, status):
-        audio_data.append(indata.copy())
-
-    with st.chat_message("assistant"):
-        st.markdown("Press 'R' to start recording your answer and 'R' again to stop.")
-    keyboard.wait('r')
-    with st.chat_message("assistant"):
-        st.markdown("Recording started please speak into the microphone... Press 'R' again to stop.")
-    stream = sd.InputStream(samplerate=sample_rate, channels=1, dtype='float32', callback=callback, device=48)
-    stream.start()
-    keyboard.wait('r')
-    stream.stop()
-    stream.close()
-    with st.chat_message("assistant"):
-        st.markdown("Recording stopped.")
-
-    audio = np.concatenate(audio_data, axis=0)
-    return audio, sample_rate
-
-
-def get_transcription():
-    audio, sample_rate = record_audio()
-
-    waveform = preprocess_audio(audio, sample_rate)
-
-    # Prepare inputs for the model
-    inputs = processor(waveform.squeeze(), return_tensors="pt", sampling_rate=16000)
-
-    # Generate transcription
-    with torch.no_grad():
-        predicted_ids = model.generate(inputs["input_features"])
-
-    # Decode the predicted tokens
-    transcription = processor.batch_decode(predicted_ids, skip_special_tokens=True)[0]
-
-    return transcription
 
 def generate_report(info, type):
     st.subheader(type)
@@ -75,14 +22,12 @@ if "messages" not in st.session_state:
    st.session_state["messages"] = [{"role": "assistant", "content": string_data}]
 
 for msg in st.session_state.messages:
-    # if msg["role"] == "user":
-    #     continue
     with st.chat_message(msg["role"]):
         st.markdown(msg["content"])
 
 if st.button("Record Answer"):
     
-    answer = get_transcription()
+    answer = get_transcription(processor, model)
     with st.chat_message("user"):
         st.markdown(answer)
 

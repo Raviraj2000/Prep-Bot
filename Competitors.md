@@ -1,6 +1,6 @@
 ## Competitors to prep-bot:
 
-### This platform is built on the idea of conversation intelligence.Conversation intelligence is where the system either with or without AI provide insights to users on conversations. Companies like Gong.io and Clari Co-pilot provide organizations insights into their video conferences and meetings.
+**This platform is built on the idea of conversation intelligence.Conversation intelligence is where the system either with or without AI provide insights to users on conversations. Companies like Gong.io and Clari Co-pilot provide organizations insights into their video conferences and meetings.**
 
 
 | **Platform**            | **AI Interview Prep** | **Real-Time Interview Support** | **Post Interview Summary** | **Resume and Cover Letter Tailoring** | **Job Position / Resume Tailored Interview Prep** |
