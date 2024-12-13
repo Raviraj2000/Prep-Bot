@@ -26,16 +26,16 @@ I always had trouble coming up with answers on the spot at any interview. One of
 - Backend: Python, Flask
 
 #### Database:
-The database contains unstructured data from 301 questions for interview suggested by harvard business school. The is cleaned, chunked and stored in the chromadb vector database. The langchain framework offers a retriever based on text similarity on the chromadb database. We can retrieve the k top similar responses from the database. 
+The database contains unstructured data from 301 questions for interview suggested by harvard business school. The data is cleaned, chunked and stored in the chromadb vector database. The langchain framework offers a retriever based on text similarity on the chromadb database. We can retrieve the k top similar responses from the database. 
 #### Server:
-Flask server provides endpoints to get a random question from the database and another endpoint to evaluate thew response.
+Flask server provides endpoints to get a random question from the database and another endpoint to evaluate the response.
 #### Recording and transcribing the response:
 Using the sound device library from python we can record an audio stream, convert it to the required sampling rate and then store it as a tensor. Finally we feed it to the Whisper Tiny Model to get quick yet sufficiently accurate transcription of the answer for evaluation. 
 #### Evaluating the response using LLama 3:
-Groq Api provides free access to the LLama 3 70b model with 8192 token window. This is free compared to Chatgpt and provides good enough accuracy on responses and limited hallucination. The evalaute endpoint provides the LLama 3 model with:
+Groq Api provides free access to the LLama 3 70b model with 8192 token window. This is free compared to Chatgpt and provides good enough accuracy on responses and limited hallucination. The evaluate endpoint provides the LLama 3 model with:
 - context: The randomly selected question and steps to answer it are retrieved from the chromadb and provided to the llama 3 as context.
 - template: The template containing instructions on how the response should be structured is given to the model [strengths, areas of improvement, suggestions].
-- response: the transcribed response from user is given for evaluation. Using the prompt given above the model then evaluates the user's answer and provides feedback on it.
+- response: the transcribed response from user is given for evaluation. Using the prompt given above the model, it evaluates the user's answer and provides feedback on it.
 
 ### Reasons for Choosing the Stack:
 
