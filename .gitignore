@@ -1,6 +1,5 @@
-.obsidian/
 __pycache__/
-*.env
+.env
 *.txt
 test.py
 logs/*
