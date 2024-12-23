@@ -1,44 +1,49 @@
-from flask import Flask, jsonify, request
-from flask_cors import CORS
+from fastapi import FastAPI, HTTPException, Form
+from fastapi.middleware.cors import CORSMiddleware
 from questions.questions import get_interview_question
-from transcription.whisper_transcribe import get_transcription
-from database import get_relevant_data
-from groq_api import evaluate
-import json
-import base64
+# from transcription.whisper_transcribe import get_transcription
+from database.database import get_relevant_text
+# from groq_api import evaluate
+from typing import Optional
 
-app = Flask(__name__)
-CORS(app)
+app = FastAPI(title="Interview Prep API", version="2.0")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-@app.route('/')
-def home():
-    return jsonify(message="Welcome to Interview Prep")
+@app.get("/")
+async def home():
+    return {"message": "Welcome to Interview Prep"}
 
-@app.route('/api/question')
-def get_question():
-    question = get_interview_question()
-    return jsonify(question)
+@app.get("/api/question")
+async def get_question():
+    try:
+        question = get_interview_question()
+        return {"question": question}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
-@app.route('/api/evaluate', methods=['POST'])
-def evaluate_response():
-    if 'question' not in request.form:
-        return jsonify({'error': 'Missing question'}), 400
-    
-    if 'candidate_answer' not in request.form:
-        return jsonify({'error' : 'Missing candidate answer'}), 400
+@app.post("/api/evaluate")
+async def evaluate_response(question: str = Form(...),candidate_answer: str = Form(...)):
+    try:
+        if not question or not candidate_answer:
+            raise HTTPException(status_code=400, detail="Missing question or candidate answer.")
+        
+        print(f"Question: {question}")
+        print(f"Candidate Answer: {candidate_answer}")
+        
+        relevant_data = get_relevant_text(question)
+        # response = evaluate(question, relevant_data, candidate_answer)
+        print(relevant_data)
+        
+        return relevant_data
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
-    question = request.form['question']
-    print(question)
-    candidate_answer = request.form['candidate_answer']
-    print(candidate_answer)
-    
-    relevant_data = get_relevant_data(question)
-
-    response = evaluate(question, relevant_data, candidate_answer)
-
-    return jsonify(response)
-
-def main():
-    return app.run()
-
-main()
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="127.0.0.1", port=8000)
