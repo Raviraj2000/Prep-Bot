@@ -1,5 +1,8 @@
 from groq import Groq
-client = Groq()
+import os
+client = Groq(
+    api_key=os.environ.get("GROQ_API_KEY")
+)
 def evaluate(question,retrieved_steps, candidate_answer):
     completion = client.chat.completions.create(
         model="llama3-70b-8192",
@@ -41,8 +44,6 @@ def evaluate(question,retrieved_steps, candidate_answer):
                    f"}}\n\n"
                    f"Now, provide feedback based on the inputs in JSON:\n\n"
                    f"{{\n"
-                   f"  \"Question\": \"{question}\",\n"
-                   f"  \"Candidate's Answer\": \"{candidate_answer}\",\n"
                    f"  \"Feedback\": {{\n"
                    f"    \"Strengths\": [\"No feedback\"],\n"
                    f"    \"Areas for Improvement\": [\"No feedback\"],\n"

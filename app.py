@@ -33,10 +33,7 @@ if st.button("Record Answer"):
 
     data = {"question":st.session_state.messages[-1]['content'], 'candidate_answer' : answer}
     response = requests.post("http://127.0.0.1:5000/api/evaluate", data=data)
-
-    feedback_str = json.loads(response.content)
-    feedback = json.loads(feedback_str)
-
+    feedback = json.loads(response.content)
     feedback = feedback['Feedback']
     print(feedback)
 
