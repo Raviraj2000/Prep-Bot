@@ -10,9 +10,6 @@ client = MilvusClient(
 )
 print("Successfully connected to Milvus.")
 
-import torch
-from transformers import AutoTokenizer, AutoModel
-
 class BGEEmbedModel:
     def __init__(self, model_name="BAAI/bge-large-en"):
         """
@@ -59,10 +56,9 @@ def query_milvus(client, query_embedding):
             search_params={
                 "metric_type": "COSINE",
                 "params": {
-                    "nprobe": 64  # Search across 64 clusters for balanced accuracy and speed
+                    "nprobe": 128   # Search across 64 clusters for balanced accuracy and speed
                 }
             },
-            limit=5,
             output_fields=["text"]
         )
         print(len(results))
@@ -77,7 +73,7 @@ def query_milvus(client, query_embedding):
 
 # ✅ Step 4: Run Query
 def main():
-    sample_query = "Do you think that the past is any precedent for the future?"
+    sample_query = "Tell me about yourself"
     print(f"\n==== QUERYING MILVUS FOR: '{sample_query}' ====")
     
     # Initialize embedding model

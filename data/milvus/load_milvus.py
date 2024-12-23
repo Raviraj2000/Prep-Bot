@@ -190,6 +190,10 @@ def main():
     
     if client is None:
         return
+    
+    client.drop_collection(
+    collection_name="interview_book_bge"
+    )
 
     # Check if collection already exists
     if "interview_book_bge" not in client.list_collections():
