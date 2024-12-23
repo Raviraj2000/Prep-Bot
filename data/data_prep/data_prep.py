@@ -17,7 +17,7 @@ def clean_text(text):
 
 # Chunk Text to reduce the size of data
 def chunk_text(text):
-    splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+    splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
     return splitter.split_text(text)
 
 #Add metadata for better traceability
