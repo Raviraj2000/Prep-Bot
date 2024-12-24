@@ -49,7 +49,7 @@ class MilvusDatabase:
         try:
             search_params = {
                 "metric_type": "COSINE",
-                "params": {"nprobe": 128}
+                "params": {"nprobe": 512}
             }
             
             results = self.client.search(

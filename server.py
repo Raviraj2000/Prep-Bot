@@ -56,6 +56,7 @@ def evaluate_response(question: str = Form(...),candidate_answer: str = Form(...
 
         logger.info(f"Question: {question}")
         logger.info(f"Answer: {candidate_answer}")
+        logger.info(f"Retrieved Data: {relevant_data}")
         logger.info(f"Feedback: {response}")
         
         if not response:

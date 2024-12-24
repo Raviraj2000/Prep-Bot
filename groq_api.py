@@ -14,7 +14,7 @@ def evaluate(question,retrieved_steps, candidate_answer):
                    f"Question: \"{question}\"\n"
                    f"Retrieved Steps: \"{retrieved_steps}\"\n"
                    f"Candidate's Answer: \"{candidate_answer}\"\n\n"
-                   f"Analyze the candidate's answer based on the retrieved steps and provide detailed feedback on how to improve their response. Specifically, highlight:\n\n"
+                   f"Analyze the candidate’s answer, referencing the retrieved steps only if they are relevant to the question. Provide detailed feedback on how to improve the response, and ignore any steps or sample answers that do not apply. Specifically, highlight:\n\n"
                    f"- Strengths: Identify and explain the good parts of the candidate's answer.\n"
                    f"- Areas for Improvement: Identify and explain the parts of the candidate's answer that need improvement.\n"
                    f"- Suggestions for Improvement: Provide specific suggestions on how to improve the answer, including examples of what to say instead.\n\n"
