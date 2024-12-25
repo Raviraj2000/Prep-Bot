@@ -4,11 +4,15 @@ from transformers import AutoTokenizer, AutoModel
 import torch
 import os
 import certifi
+import logging
 
-# # Set SSL certificate paths
+# Set SSL certificate paths
 os.environ['SSL_CERT_FILE'] = certifi.where()
 os.environ['REQUESTS_CA_BUNDLE'] = certifi.where()
 
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 class BGEEmbedModel:
     def __init__(self, model_name="BAAI/bge-large-en"):
@@ -29,21 +33,21 @@ class BGEEmbedModel:
             embedding = outputs.last_hidden_state.mean(dim=1)
             return embedding[0].numpy().tolist()
         except Exception as e:
-            print(f"❌ Failed to generate embedding: {e}")
+            logger.error(f"Failed to generate embedding: {e}")
             return None
 
 class MilvusDatabase:
     def __init__(self, uri="http://127.0.0.1:19530", token="root:Milvus"):
         try:
             self.client = MilvusClient(uri=uri, token=token)
-            print("✅ Successfully connected to Milvus.")
+            logger.info("✅ Successfully connected to Milvus.")
         except Exception as e:
-            print(f"❌ Failed to connect to Milvus: {e}")
+            logger.error(f"Failed to connect to Milvus: {e}")
             self.client = None
 
     def query(self, query_embedding, collection_name="interview_book_bge", limit=5):
         if not self.client:
-            print("❌ Milvus client is not initialized.")
+            logger.error("Milvus client is not initialized.")
             return []
         
         try:
@@ -63,28 +67,29 @@ class MilvusDatabase:
             
             # Extract text results
             retrieved_texts = [result[0]['entity']['text'] for result in results]
-            print(f"✅ Retrieved {len(retrieved_texts)} relevant chunks from Milvus.")
+            logger.info(f"Retrieved {len(retrieved_texts)} relevant chunks from Milvus.")
             return retrieved_texts
         
         except Exception as e:
-            print(f"❌ Query failed: {e}")
+            logger.error(f"Query failed: {e}")
             return []
-
-model = BGEEmbedModel()
-milvus_db = MilvusDatabase()
 
 def get_relevant_data(question):
     if model is None or milvus_db is None:
-        print("❌ Model or Milvus database instance is missing.")
+        logger.error("Model or Milvus database instance is missing.")
         return []
 
     # Generate query embedding
     query_embedding = model.get_embedding(question)
     if not query_embedding:
-        print("❌ Failed to generate embedding for the question.")
+        logger.error("Failed to generate embedding for the question.")
         return []
     
     # Query Milvus
     relevant_texts = milvus_db.query(query_embedding)
-    print("✅ Retrieved relevant data from Milvus." )
+    logger.info("Retrieved relevant data from Milvus.")
     return relevant_texts[0]
+
+
+model = BGEEmbedModel()
+milvus_db = MilvusDatabase()

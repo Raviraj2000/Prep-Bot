@@ -8,6 +8,7 @@ import uvicorn
 import logging
 from logging.handlers import RotatingFileHandler
 import json
+from pydantic import BaseModel, ValidationError
 
 logging.basicConfig(
     level=logging.INFO,
@@ -34,13 +35,17 @@ app.add_middleware(
 async def home():
     return {"message": "Welcome to Interview Prep"}
 
+class QuestionResponse(BaseModel):
+    question: str
+
 @app.get("/api/question")
 def get_question():
     try:
         question = get_interview_question()
-        return question
+        question_response = QuestionResponse(question=question)
+        return question_response.question
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail="An error occurred while fetching the question")
 
 @app.post("/api/evaluate")
 def evaluate_response(question: str = Form(...),candidate_answer: str = Form(...)):
@@ -92,6 +97,6 @@ def evaluate_response(question: str = Form(...),candidate_answer: str = Form(...
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str("I am being hit"))
-
+        
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=5000)

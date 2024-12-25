@@ -52,14 +52,11 @@ def evaluate(question,retrieved_steps, candidate_answer):
                    f"}}"
             }
         ],
-        temperature=1,
+        temperature=0.8,
         max_tokens=4096,
-        top_p=1,
+        top_p=0.9,
         stream=False,
         response_format={"type": "json_object"},
         stop=None,
     )
-
-    
-
     return completion.choices[0].message.content

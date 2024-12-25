@@ -43,7 +43,6 @@ def create_milvus_collection(client):
             enable_dynamic_field=False,
             description="Interview Book Chunks with BGE Embeddings"
         )
-
         schema.add_field(
             field_name="id",
             datatype=DataType.INT64,

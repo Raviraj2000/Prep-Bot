@@ -40,9 +40,8 @@ if st.button("Record Answer"):
     strengths = feedback['Strengths']
     afi = feedback['Areas for Improvement']
     sfi = feedback['Suggestions for Improvement']
-
+    
     st.header("Report")
     generate_report(strengths, "Strengths")
     generate_report(afi, "Areas for Improvement")
     generate_report(sfi, "Suggestions for Improvement")
-    
