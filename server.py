@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException, Form
 from fastapi.middleware.cors import CORSMiddleware
 from questions.questions import get_interview_question
 from database.database import get_relevant_data
-from groq_api import evaluate
+from groq_api.groq_api import evaluate
 from typing import Optional
 import uvicorn
 import logging

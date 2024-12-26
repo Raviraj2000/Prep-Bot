@@ -1,7 +1,7 @@
 import re
 from PyPDF2 import PdfReader
 from typing import Dict
-from groq_api import parse_resume
+from groq_api.groq_api import parse_resume
 import redis
 import json
 
