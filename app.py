@@ -47,7 +47,7 @@ def start_recording():
     st.toast("Recording started. Speak into the microphone...")
 
     audio_data = []  # Local list to store audio data
-    
+
     def callback(indata, frames, time, status):
         if status:
             print(status)
@@ -150,7 +150,6 @@ else:
 
 # --- Bottom Buttons Section ---
 st.markdown("---")
-
 
 if st.button("Next Question"):
     st.session_state.fetch_next_question = True
