@@ -9,6 +9,10 @@ import logging
 from logging.handlers import RotatingFileHandler
 import json
 from pydantic import BaseModel, ValidationError
+from fastapi import FastAPI, UploadFile, File, HTTPException
+from PyPDF2 import PdfReader
+import shutil
+from resume_handler.resumeHandler import handle, get_resume
 
 logging.basicConfig(
     level=logging.INFO,
@@ -21,7 +25,6 @@ logging.basicConfig(
 
 # Create Logger
 logger = logging.getLogger("fastapi_app")
-
 app = FastAPI(title="Interview Prep API", version="2.0")
 app.add_middleware(
     CORSMiddleware,
@@ -31,12 +34,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+class QuestionResponse(BaseModel):
+    question: str
+
 @app.get("/")
 async def home():
     return {"message": "Welcome to Interview Prep"}
-
-class QuestionResponse(BaseModel):
-    question: str
 
 @app.get("/api/question")
 def get_question():
@@ -47,22 +50,35 @@ def get_question():
     except Exception as e:
         raise HTTPException(status_code=500, detail="An error occurred while fetching the question")
 
+@app.post("/api/upload_resume")
+async def upload_resume(file: UploadFile = File(...), name: Optional[str] = Form(None)):
+    try:
+        if file.content_type != "application/pdf":
+            logger.error(f"Invalid file type: {file.content_type}")
+            raise HTTPException(status_code=400, detail="Invalid file type. Only PDF files are allowed.")
+        handle(file, name)
+        return 
+    except Exception as e:
+        logger.error(f"An error occurred while uploading the resume: {str(e)}")
+        raise HTTPException(status_code=500, detail="An error occurred while processing the resume")
+
 @app.post("/api/evaluate")
-def evaluate_response(question: str = Form(...),candidate_answer: str = Form(...)):
+def evaluate_response(question: str = Form(...),candidate_answer: str = Form(...), candidate_name: str = Form(None)):
     try:
         if not question:
             raise HTTPException(status_code=400, detail="Missing question")
         if not candidate_answer:
             raise HTTPException(status_code=400, detail="Missing answer")
         
+        resume_info = get_resume(candidate_name)
         relevant_data = get_relevant_data(question)
-        response = evaluate(question, relevant_data, candidate_answer)
+        response = evaluate(question, relevant_data, candidate_answer, resume_info)
         response = json.loads(response)
 
         logger.info(f"Question: {question}")
-        logger.info(f"Answer: {candidate_answer}")
-        logger.info(f"Retrieved Data: {relevant_data}")
-        logger.info(f"Feedback: {response}")
+        # logger.info(f"Answer: {candidate_answer}")
+        # logger.info(f"Retrieved Data: {relevant_data}")
+        # logger.info(f"Feedback: {response}")
         
         if not response:
             response = {

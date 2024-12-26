@@ -62,7 +62,6 @@ def create_milvus_collection(client):
             field_name="metadata",
             datatype=DataType.JSON
         )
-
         client.create_collection(
             collection_name="interview_book_bge",
             schema=schema
@@ -119,7 +118,6 @@ def create_index(client):
             index_params=index_params,
             sync=False
         )
-
         print("Index created successfully on 'embedding' field.")
     except Exception as e:
         print(f"Failed to create index: {e}")

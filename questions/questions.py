@@ -22,14 +22,13 @@ milvus_client = MilvusClient(
 
 TO_ASK_KEY = "questions:to_ask"
 ASKED_KEY = "questions:asked"
-QUESTION_TTL = 3600 
+QUESTION_TTL = 1800 
 
 
 def initialize_questions():
     logging.info("Initializing questions...")
     try:
         milvus_client.load_collection(collection_name="interview_questions")
-     
         results = milvus_client.query(
             collection_name="interview_questions",
             filter="id >= 0", 
@@ -48,8 +47,31 @@ def initialize_questions():
     except Exception as e:
         logging.error(f"Failed to load questions from Milvus: {e}")
 
-def get_interview_question():
+def clean_expired_questions():
+    """
+    Remove expired questions from the ASKED_KEY set based on TTL.
+    """
     try:
+        expired_questions = []
+        asked_questions = redis_client.smembers(ASKED_KEY)
+
+        for question in asked_questions:
+            ttl = redis_client.ttl(f"{ASKED_KEY}:{question}")
+            if ttl == -2:  # Key has expired
+                redis_client.srem(ASKED_KEY, question)
+                redis_client.sadd(TO_ASK_KEY, question)
+    except Exception as e:
+        logging.error(f"Failed to clean expired questions: {e}")
+
+def get_interview_question():
+    """
+    Fetch a random question from Redis without repetition.
+    Automatically resets if all questions have been asked.
+    """
+    try:
+        # Clean expired questions before fetching
+        clean_expired_questions()
+
         # Check if `to_ask` is empty
         if redis_client.scard(TO_ASK_KEY) == 0:
             # Automatically reset from `asked` to `to_ask`
@@ -58,9 +80,9 @@ def get_interview_question():
                 for question in asked_questions:
                     redis_client.sadd(TO_ASK_KEY, question)
                 redis_client.delete(ASKED_KEY)
-                logging.info("All asked questions moved back to 'to_ask'.")
+                logging.info("♻️ All asked questions moved back to 'to_ask'.")
             else:
-                logging.info("No questions available in both 'to_ask' and 'asked'.")
+                logging.info("⚠️ No questions available in both 'to_ask' and 'asked'.")
                 return None
 
         # Fetch a random question from `to_ask`
@@ -73,16 +95,10 @@ def get_interview_question():
         redis_client.sadd(ASKED_KEY, question)
         redis_client.setex(f"{ASKED_KEY}:{question}", QUESTION_TTL, question)
 
-        # Print time remaining on each of the asked keys
-        asked_questions = redis_client.smembers(ASKED_KEY)
-        for question in asked_questions:
-            ttl = redis_client.ttl(f"{ASKED_KEY}:{question}")
-            logging.debug(f"Time remaining for '{question}': {ttl} seconds")
-
         return question
     
     except Exception as e:
-        logging.error(f"Failed to fetch a question: {e}")
+        logging.error(f"❌ Failed to fetch a question: {e}")
         return None
 
 # ✅ Reset Questions
